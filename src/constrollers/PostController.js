@@ -1,5 +1,4 @@
 import {PostModel} from "../model/Post";
-
 const jwt = require('jsonwebtoken')
 
 class PostController {
@@ -24,7 +23,7 @@ class PostController {
         title: data.title,
         description: data.description,
         imageURL: data.imageURL,
-        text:data.text
+        text: data.text
       })
       post.save().then(() => {
         res.send({status: 'ok'})

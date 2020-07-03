@@ -3,8 +3,11 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import PostController from "./constrollers/PostController";
+import LoginController from "./constrollers/LoginController";
+const {check} = require('express-validator')
 
 const Post = new PostController()
+const Auth = new LoginController()
 
 const app = express();
 app.use(cors({credentials:  true, origin: true}))
@@ -23,6 +26,9 @@ app.get('/posts', Post.index)
 app.get('/posts/:id', Post.read)
 app.delete('/posts/:id', Post.delete)
 app.put('/posts/:id', Post.update)
+app.post('/auth', Auth.authentication)
+app.post('/register', Auth.register)
+
 
 
 app.listen(4000, () => {

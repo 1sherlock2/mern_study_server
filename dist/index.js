@@ -20,9 +20,17 @@ var _PostController = require("./constrollers/PostController");
 
 var _PostController2 = _interopRequireDefault(_PostController);
 
+var _LoginController = require("./constrollers/LoginController");
+
+var _LoginController2 = _interopRequireDefault(_LoginController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _require = require('express-validator'),
+    check = _require.check;
+
 var Post = new _PostController2.default();
+var Auth = new _LoginController2.default();
 
 var app = (0, _express2.default)();
 app.use((0, _cors2.default)({ credentials: true, origin: true }));
@@ -40,6 +48,8 @@ app.get('/posts', Post.index);
 app.get('/posts/:id', Post.read);
 app.delete('/posts/:id', Post.delete);
 app.put('/posts/:id', Post.update);
+app.post('/auth', Auth.authentication);
+app.post('/register', Auth.register);
 
 app.listen(4000, function () {
   console.log('server was started');
