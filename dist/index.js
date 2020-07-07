@@ -29,27 +29,48 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _require = require('express-validator'),
     check = _require.check;
 
+var cookieParser = require('cookie-parser');
+
 var Post = new _PostController2.default();
-var Auth = new _LoginController2.default();
+var Login = new _LoginController2.default();
 
 var app = (0, _express2.default)();
 app.use((0, _cors2.default)({ credentials: true, origin: true }));
 _mongoose2.default.connect("mongodb+srv://1sherlock2:34896GAZ@cluster0-knqun.mongodb.net/express_study?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useFindAndModify: false,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
+
+var optionByStatis = {
+  dotfiles: 'allow',
+  index: false,
+  maxAge: '1d'
+};
+
+var optionByUrlencoded = {
+  extended: true
+};
+
+var optionByText = {
+  defaultCharset: String
+};
 
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
+app.use(_express2.default.static('public', optionByStatis));
+app.use(_express2.default.urlencoded(optionByUrlencoded));
+app.use(cookieParser());
+app.use(_express2.default.text(optionByText));
 
 app.post('/posts', Post.create);
 app.get('/posts', Post.index);
 app.get('/posts/:id', Post.read);
 app.delete('/posts/:id', Post.delete);
 app.put('/posts/:id', Post.update);
-app.post('/auth', Auth.authentication);
-app.post('/register', Auth.register);
+app.post('/register', [check('email', "Uncorrected email").isEmail(), check("password", "Minimum password size 8 symbols").isLength({ min: 8 })], Login.register);
+app.post('/auth', [check("email", "Entry email correct").normalizeEmail().isEmail(), check("password", "Entry password").exists()], Login.authentication);
 
 app.listen(4000, function () {
   console.log('server was started');

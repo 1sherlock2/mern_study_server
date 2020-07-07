@@ -5,45 +5,55 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 class LoginController {
-  authentication(req, res) {
+  register(req, res) {
     try {
       // const errors = validationResult(req)
       // if (errors.isEmpty()) {
-      //   return res.send({message: "Email or password is not correct"})
+      //   return res.status(400).json({message: "Email or password is not correct"})
       // }
-      const {email,password} = req.body
-      LoginModel.findOne({email}).then(email => {
-        if (email) {
-          return res.send('It is user available')
+
+      const {email, password} = req.body.toString()
+      console.log(email, password)
+      return LoginModel.findOne({email}).then(element => {
+        console.log(element)
+        if (element) {
+          return res.status(400).json({message: 'It is user available'})
+        } else {
+          bcrypt.hash(password, 12).then(hashPassword => {
+            const login = new LoginModel({
+              email: email,
+              password: hashPassword
+            })
+            console.log(login)
+            login.save().then(() => {
+              return res.status(200).json({
+                email: email,
+                password: hashPassword
+              })
+            })
+          })
         }
-      })
-      bcrypt.hash(password, 12).then(hashPassword => {
-        const login = new LoginModel({
-          email: email,
-          password: hashPassword
-        })
-        login.save().then(() => {
-          res.send({status: 'You was authentication'})
-        })
       })
     } catch (e) {
       res.send(e.message)
     }
   }
 
-  register(req, res) {
+  authentication(req, res) {
     try {
-      const errors = validationResult(req)
-      if (errors.isEmpty()) {
-        return res.statusCode(400).json({
-          errors: errors.array(),
-          message: "Email or password is not correct"
-        })
-      }
-      const data = req.body;
-      LoginModel.findOne(data.email).then(user => {
+      // const errors = validationResult(req)
+      // if (errors.isEmpty()) {
+      //   return res.status(400).json({
+      //     errors: errors.array(),
+      //     message: "Email or password is not correct"
+      //   })
+      // }
+      const {email, password} = req.body;
+      console.log(email, password)
+      return LoginModel.findOne({email}).then((user) => {
+        console.log(user)
         if (!user) {
-          return res.statusCode(400).json({
+          return res.status(400).json({
             message: "It user is not found"
           })
         }
@@ -52,21 +62,21 @@ class LoginController {
           "express_study",
           {expiresIn: "1h"}
         )
-        res.json(token)
-      })
-      bcrypt.compare(data.email, data.password).then(data => {
-        if (!data) {
-          return res.statusCode(400).json({
-            message: "Password is not correct"
-          })
-        }
+        bcrypt.compare(password, user.password).then(data => {
+          if (!data) {
+            return res.status(400).json({
+              message: "Password is not correct"
+            })
+          }
+        })
+        return res.status(200).json({token, userID: user.id})
       })
     } catch (e) {
-      res.statusCode(400).json({
-        message: "Error happened, try connecting again later"
-      })
+      console.log(e.message)
     }
   }
 }
 
 export default LoginController;
+
+

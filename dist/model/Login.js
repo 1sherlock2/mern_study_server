@@ -13,8 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var LoginSchema = new _mongoose.Schema({
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true, minlength: 8 },
-  link: [{ type: _mongoose.Types.ObjectId, ref: 'Link' }]
+  password: { type: String, required: true, minlength: 8 }
+  // link: [{type: Types.ObjectId, ref:'Link'}]
 });
 
 var LoginModel = exports.LoginModel = _mongoose2.default.model("Login", LoginSchema);
