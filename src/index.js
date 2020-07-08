@@ -4,6 +4,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import PostController from "./constrollers/PostController";
 import LoginController from "./constrollers/LoginController";
+import {body} from "express-validator";
+
 const {check} = require('express-validator')
 const cookieParser = require('cookie-parser');
 
@@ -19,27 +21,20 @@ mongoose.connect("mongodb+srv://1sherlock2:34896GAZ@cluster0-knqun.mongodb.net/e
   useUnifiedTopology: true,
   useCreateIndex: true
 })
-
-const optionByStatis = {
+let urlencodedFalse = bodyParser.urlencoded({extended: false})
+let bodyParserJsonTrue = bodyParser.json({
+  inflate: true,
+  strict: true
+})
+let expressStatic = (express.static('public', {
   dotfiles: 'allow',
   index: false,
   maxAge: '1d',
-}
-
-const optionByUrlencoded = {
-  extended: true,
-}
-
-const optionByText = {
-  defaultCharset: String,
-}
-
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-app.use(express.static('public',optionByStatis))
-app.use(express.urlencoded(optionByUrlencoded))
-app.use(cookieParser())
-app.use(express.text(optionByText))
+}))
+app.use(cookieParser({}))
+// app.use(bodyParser.text({
+//   defaultCharset: String,
+// }))
 
 app.post('/posts', Post.create)
 app.get('/posts', Post.index)
@@ -47,16 +42,16 @@ app.get('/posts/:id', Post.read)
 app.delete('/posts/:id', Post.delete)
 app.put('/posts/:id', Post.update)
 app.post('/register',
-  [
-    check('email', "Uncorrected email").isEmail(),
-    check("password", "Minimum password size 8 symbols").isLength({min: 8})
-  ],
+  // [
+  //   check('email', "Uncorrected email").isEmail(),
+  //   check("password", "Minimum password size 8 symbols").isLength({min: 8})
+  // ],
   Login.register)
-app.post('/auth',
-  [
-    check("email", "Entry email correct").normalizeEmail().isEmail(),
-    check("password", "Entry password").exists()
-  ],
+app.post('/auth', urlencodedFalse,bodyParserJsonTrue,
+  // [
+  //   check("email", "Entry email correct").normalizeEmail().isEmail(),
+  //   check("password", "Entry password").exists()
+  // ],
   Login.authentication)
 
 

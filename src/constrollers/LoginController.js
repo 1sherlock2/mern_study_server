@@ -11,10 +11,10 @@ class LoginController {
       // if (errors.isEmpty()) {
       //   return res.status(400).json({message: "Email or password is not correct"})
       // }
-
-      const {email, password} = req.body.toString()
+      const {email, password} = req.body
       console.log(email, password)
       return LoginModel.findOne({email}).then(element => {
+        console.log(req.cookies)
         console.log(element)
         if (element) {
           return res.status(400).json({message: 'It is user available'})

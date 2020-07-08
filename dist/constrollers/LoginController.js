@@ -28,13 +28,13 @@ var LoginController = function () {
         // if (errors.isEmpty()) {
         //   return res.status(400).json({message: "Email or password is not correct"})
         // }
-
-        var _req$body$toString = req.body.toString(),
-            email = _req$body$toString.email,
-            password = _req$body$toString.password;
+        var _req$body = req.body,
+            email = _req$body.email,
+            password = _req$body.password;
 
         console.log(email, password);
         return _Login.LoginModel.findOne({ email: email }).then(function (element) {
+          console.log(req.cookies);
           console.log(element);
           if (element) {
             return res.status(400).json({ message: 'It is user available' });
@@ -69,9 +69,9 @@ var LoginController = function () {
         //     message: "Email or password is not correct"
         //   })
         // }
-        var _req$body = req.body,
-            email = _req$body.email,
-            password = _req$body.password;
+        var _req$body2 = req.body,
+            email = _req$body2.email,
+            password = _req$body2.password;
 
         console.log(email, password);
         return _Login.LoginModel.findOne({ email: email }).then(function (user) {

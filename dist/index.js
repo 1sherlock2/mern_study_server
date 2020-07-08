@@ -24,6 +24,8 @@ var _LoginController = require("./constrollers/LoginController");
 
 var _LoginController2 = _interopRequireDefault(_LoginController);
 
+var _expressValidator = require("express-validator");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _require = require('express-validator'),
@@ -42,35 +44,38 @@ _mongoose2.default.connect("mongodb+srv://1sherlock2:34896GAZ@cluster0-knqun.mon
   useUnifiedTopology: true,
   useCreateIndex: true
 });
-
-var optionByStatis = {
-  dotfiles: 'allow',
-  index: false,
-  maxAge: '1d'
-};
-
-var optionByUrlencoded = {
-  extended: true
-};
-
-var optionByText = {
-  defaultCharset: String
-};
-
-app.use(_bodyParser2.default.urlencoded({ extended: true }));
-app.use(_bodyParser2.default.json());
-app.use(_express2.default.static('public', optionByStatis));
-app.use(_express2.default.urlencoded(optionByUrlencoded));
-app.use(cookieParser());
-app.use(_express2.default.text(optionByText));
+var urlencodedFalse = _bodyParser2.default.urlencoded({ extended: false });
+var bodyParserJsonTrue = _bodyParser2.default.json({
+  inflate: true,
+  strict: true
+});
+// app.use(express.static('public', {
+//   dotfiles: 'allow',
+//   index: false,
+//   maxAge: '1d',
+// }))
+app.use(cookieParser({}));
+// app.use(bodyParser.text({
+//   defaultCharset: String,
+// }))
 
 app.post('/posts', Post.create);
 app.get('/posts', Post.index);
 app.get('/posts/:id', Post.read);
 app.delete('/posts/:id', Post.delete);
 app.put('/posts/:id', Post.update);
-app.post('/register', [check('email', "Uncorrected email").isEmail(), check("password", "Minimum password size 8 symbols").isLength({ min: 8 })], Login.register);
-app.post('/auth', [check("email", "Entry email correct").normalizeEmail().isEmail(), check("password", "Entry password").exists()], Login.authentication);
+app.post('/register',
+// [
+//   check('email', "Uncorrected email").isEmail(),
+//   check("password", "Minimum password size 8 symbols").isLength({min: 8})
+// ],
+Login.register);
+app.post('/auth', urlencodedFalse, bodyParserJsonTrue,
+// [
+//   check("email", "Entry email correct").normalizeEmail().isEmail(),
+//   check("password", "Entry password").exists()
+// ],
+Login.authentication);
 
 app.listen(4000, function () {
   console.log('server was started');
