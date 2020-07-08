@@ -14,7 +14,7 @@ class LoginController {
       const {email, password} = req.body
       console.log(email, password)
       return LoginModel.findOne({email}).then(element => {
-        console.log(req.cookies)
+        // console.log(req.cookies)
         console.log(element)
         if (element) {
           return res.status(400).json({message: 'It is user available'})

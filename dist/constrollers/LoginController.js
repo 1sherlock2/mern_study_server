@@ -34,7 +34,7 @@ var LoginController = function () {
 
         console.log(email, password);
         return _Login.LoginModel.findOne({ email: email }).then(function (element) {
-          console.log(req.cookies);
+          // console.log(req.cookies)
           console.log(element);
           if (element) {
             return res.status(400).json({ message: 'It is user available' });

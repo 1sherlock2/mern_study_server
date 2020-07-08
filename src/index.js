@@ -31,7 +31,7 @@ let expressStatic = (express.static('public', {
   index: false,
   maxAge: '1d',
 }))
-app.use(cookieParser({}))
+// app.use(cookieParser({}))
 // app.use(bodyParser.text({
 //   defaultCharset: String,
 // }))
@@ -41,7 +41,7 @@ app.get('/posts', Post.index)
 app.get('/posts/:id', Post.read)
 app.delete('/posts/:id', Post.delete)
 app.put('/posts/:id', Post.update)
-app.post('/register',
+app.post('/register',urlencodedFalse,bodyParserJsonTrue,
   // [
   //   check('email', "Uncorrected email").isEmail(),
   //   check("password", "Minimum password size 8 symbols").isLength({min: 8})
