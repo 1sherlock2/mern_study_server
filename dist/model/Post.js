@@ -15,7 +15,9 @@ var PostSchema = new _mongoose.Schema({
   title: String,
   description: String,
   imageURL: String,
-  text: String
+  text: String,
+  // date: {type: Date, default: Date.now},
+  userId: { type: _mongoose.Schema.Types.ObjectId, ref: 'Login' }
 }, {
   timestamps: true
 });
