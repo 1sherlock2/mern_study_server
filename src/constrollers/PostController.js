@@ -4,7 +4,7 @@ import {LoginModel} from "../model/Login";
 const jwt = require('jsonwebtoken')
 const {Router} = require('express')
 const router = Router()
-const user = require('../middleware/auth.middleware')
+// const user = require('../middleware/auth.middleware')
 
 
 router.get('/:userId/posts', (req, res) => {
@@ -31,13 +31,11 @@ router.post('/:userId/set_post', (req, res) => {
       description: data.description,
       imageURL: data.imageURL,
       text: data.text,
-      // _userId: LoginModel.findOne({_id: userId}).populate('Login'),
       userId: req.params.userId,
+      // _userId: LoginModel.findOne({_id: userId}).populate('Login'),
     })
     post.save().then(() => {
-      res.status(400).json({
-        message: post,
-      })
+      res.status(200).json({post})
     })
     // const createId = jwt.sign(
     //   {id: data.id}
@@ -48,20 +46,20 @@ router.post('/:userId/set_post', (req, res) => {
   }
 })
 
-router.post('/:userId/post/:id', (req, res) => {
+router.get('/post/:id', (req, res) => {
   try {
-    PostModel.findOne({_id: req.params.id}).then(post => {
+    PostModel.findById(req.params.id).then(post => {
       if (!post) {
         res.status(400).json({message: 'not found'})
       }
-      res.json(post)
+      res.status(200).json(post)
     })
   } catch (e) {
     console.log(e.message)
   }
 })
 
-router.put('/:userId/update_post/:id', (req, res) => {
+router.put('/update_post/:id', (req, res) => {
   try {
     PostModel.findByIdAndUpdate(req.params.id, {$set: req.body}, (err) => {
       if (err) {
@@ -74,7 +72,7 @@ router.put('/:userId/update_post/:id', (req, res) => {
   }
 })
 
-router.delete('/:userId/delete_post/:id', (req, res) => {
+router.delete('/delete_post/:id', (req, res) => {
   try {
     PostModel.deleteOne({_id: req.params.id}).then(post => {
       if (post) {

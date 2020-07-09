@@ -62,7 +62,7 @@ router.post('/auth', function (req, res) {
           });
         }
       });
-      return res.status(200).json({ token: token, userID: user.id });
+      return res.status(200).json({ token: token, userId: user.id });
     });
   } catch (e) {
     console.log(e.message);

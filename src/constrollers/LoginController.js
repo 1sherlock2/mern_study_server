@@ -57,7 +57,7 @@ router.post('/auth', (req, res) => {
             })
           }
         })
-        return res.status(200).json({token, userID: user.id})
+        return res.status(200).json({token, userId: user.id})
       })
     } catch (e) {
       console.log(e.message)

@@ -10,7 +10,8 @@ var _require = require('express'),
     Router = _require.Router;
 
 var router = Router();
-var user = require('../middleware/auth.middleware');
+// const user = require('../middleware/auth.middleware')
+
 
 router.get('/:userId/posts', function (req, res) {
   try {
@@ -36,13 +37,11 @@ router.post('/:userId/set_post', function (req, res) {
       description: data.description,
       imageURL: data.imageURL,
       text: data.text,
-      // _userId: LoginModel.findOne({_id: userId}).populate('Login'),
       userId: req.params.userId
+      // _userId: LoginModel.findOne({_id: userId}).populate('Login'),
     });
     post.save().then(function () {
-      res.status(400).json({
-        message: post
-      });
+      res.status(200).json({ post: post });
     });
     // const createId = jwt.sign(
     //   {id: data.id}
@@ -53,20 +52,20 @@ router.post('/:userId/set_post', function (req, res) {
   }
 });
 
-router.post('/:userId/post/:id', function (req, res) {
+router.get('/post/:id', function (req, res) {
   try {
-    _Post.PostModel.findOne({ _id: req.params.id }).then(function (post) {
+    _Post.PostModel.findById(req.params.id).then(function (post) {
       if (!post) {
         res.status(400).json({ message: 'not found' });
       }
-      res.json(post);
+      res.status(200).json(post);
     });
   } catch (e) {
     console.log(e.message);
   }
 });
 
-router.put('/:userId/update_post/:id', function (req, res) {
+router.put('/update_post/:id', function (req, res) {
   try {
     _Post.PostModel.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err) {
       if (err) {
@@ -79,7 +78,7 @@ router.put('/:userId/update_post/:id', function (req, res) {
   }
 });
 
-router.delete('/:userId/delete_post/:id', function (req, res) {
+router.delete('/delete_post/:id', function (req, res) {
   try {
     _Post.PostModel.deleteOne({ _id: req.params.id }).then(function (post) {
       if (post) {
