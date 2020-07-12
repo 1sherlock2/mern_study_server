@@ -1,9 +1,9 @@
 import {PostModel} from "../model/Post";
 import {LoginModel} from "../model/Login";
-
 const jwt = require('jsonwebtoken')
 const {Router} = require('express')
 const router = Router()
+
 // const user = require('../middleware/auth.middleware')
 
 
@@ -29,6 +29,7 @@ router.post('/:userId/set_post', (req, res) => {
     const post = new PostModel({
       title: data.title,
       description: data.description,
+      // image: {data: req.image, contentType: 'image/png'},
       imageURL: data.imageURL,
       text: data.text,
       userId: req.params.userId,

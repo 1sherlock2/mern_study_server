@@ -6,7 +6,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var auth = require("./constrollers/LoginController");
 var postById = require('./constrollers/PostController');
-
+var multer = require('multer');
 var app = express();
 
 var urlencodedFalse = bodyParser.urlencoded({ extended: false });

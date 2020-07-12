@@ -14,6 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var PostSchema = new _mongoose.Schema({
   title: String,
   description: String,
+  // image: {data: Buffer, contentType: String},
   imageURL: String,
   text: String,
   // date: {type: Date, default: Date.now},

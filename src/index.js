@@ -4,8 +4,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const auth = require("./constrollers/LoginController")
 const postById = require('./constrollers/PostController')
-
-
+const multer = require('multer')
 const app = express()
 
 let urlencodedFalse = bodyParser.urlencoded({extended: false})

@@ -10,6 +10,7 @@ var _require = require('express'),
     Router = _require.Router;
 
 var router = Router();
+
 // const user = require('../middleware/auth.middleware')
 
 
@@ -35,6 +36,7 @@ router.post('/:userId/set_post', function (req, res) {
     var post = new _Post.PostModel({
       title: data.title,
       description: data.description,
+      // image: {data: req.image, contentType: 'image/png'},
       imageURL: data.imageURL,
       text: data.text,
       userId: req.params.userId
