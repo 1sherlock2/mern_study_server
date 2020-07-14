@@ -4,7 +4,7 @@ const PostSchema = new Schema(
 	{
 		title: String,
 		description: String,
-		image: String,
+		imageURL: String,
 		text: String,
 		// date: {type: Date, default: Date.now},
 		userId: { type: Schema.Types.ObjectId, ref: 'Login' }

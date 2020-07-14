@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var PostSchema = new _mongoose.Schema({
 	title: String,
 	description: String,
-	image: String,
+	imageURL: String,
 	text: String,
 	// date: {type: Date, default: Date.now},
 	userId: { type: _mongoose.Schema.Types.ObjectId, ref: 'Login' }

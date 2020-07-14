@@ -20,25 +20,7 @@ router.get('/:userId/posts', (req, res) => {
 	}
 });
 
-// image property
-const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, './img/');
-	},
-	filename: function (req, file, cb) {
-		cb(null, new Date().toISOString() + file.originalname);
-	}
-});
-const fileFilter = (req, file, cb) => {
-	if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
-		cb(null, true);
-	} else {
-		cb(new Error('this image type is not correct'), false);
-	}
-};
-const image = multer({ storage: storage, fileFilter: fileFilter });
-
-router.post('/:userId/set_post', image.single('image'), (req, res) => {
+router.post('/:userId/set_post', (req, res) => {
 	console.log(req.file);
 	try {
 		const data = req.body;
@@ -46,18 +28,13 @@ router.post('/:userId/set_post', image.single('image'), (req, res) => {
 		const post = new PostModel({
 			title: data.title,
 			description: data.description,
-			image: req.file.path,
+			imageURL: data.imageURL,
 			text: data.text,
 			userId: req.params.userId
-			// _userId: LoginModel.findOne({_id: userId}).populate('Login'),
 		});
 		post.save().then(() => {
 			res.status(200).json({ post });
 		});
-		// const createId = jwt.sign(
-		//   {id: data.id}
-		// )
-		// res.json(createId)
 	} catch (e) {
 		console.log(e.message);
 	}
