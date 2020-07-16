@@ -1,6 +1,5 @@
 {
 	"name": "express_study",
-	"homepage": "https://1sherlock2.github.io/mern_study_react/",
 	"version": "1.0.0",
 	"main": "src/index.js",
 	"author": "sherlock <alim.gazdiev@gmail.com>",
@@ -12,9 +11,7 @@
 		"mern_study_react:install": "npm install --prefix mern_study_react",
 		"mern_study_react:build": "npm run build --prefix mern_study_react",
 		"mern_study_react:start": " npm run start --prefix mern_study_react",
-		"dev": "cross-env NODE_ENV=development concurrently \"npm run build-start\" \"npm run mern_study_react:start\"",
-		"predeploy": "npm run build",
-		"deploy": "gh-pages -d build"
+		"dev": "cross-env NODE_ENV=development concurrently \"npm run build-start\" \"npm run mern_study_react:start\""
 	},
 	"dependencies": {
 		"body-parser": "^1.19.0",
