@@ -1,6 +1,4 @@
-[submodule "mern_study_react_1"]
-	path = mern_study_react_1
-	url = https://github.com/1sherlock2/mern_study_react.git
+
 [submodule "mern_study_react"]
 	path = mern_study_react
 	url = https://github.com/1sherlock2/mern_study_react.git
