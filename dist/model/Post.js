@@ -1,25 +1,20 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.PostModel = undefined;
+var _require = require('mongoose'),
+    Schema = _require.Schema;
 
-var _mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var PostSchema = new _mongoose.Schema({
+var PostSchema = new Schema({
 	title: String,
 	description: String,
 	imageURL: String,
 	text: String,
 	// date: {type: Date, default: Date.now},
-	userId: { type: _mongoose.Schema.Types.ObjectId, ref: 'Login' }
+	userId: { type: Schema.Types.ObjectId, ref: 'Login' }
 }, {
 	timestamps: true
 });
 
-var PostModel = exports.PostModel = _mongoose2.default.model('Post', PostSchema);
+var PostModel = exports.PostModel = mongoose.model('Post', PostSchema);
+// module.exports = PostModel;

@@ -1,19 +1,15 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.LoginModel = undefined;
+var _require = require('mongoose'),
+    Schema = _require.Schema;
 
-var _mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var LoginSchema = new _mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true, minlength: 8 }
+var LoginSchema = new Schema({
+	email: { type: String, required: true, unique: true },
+	password: { type: String, required: true, minlength: 8 }
 });
 
-var LoginModel = exports.LoginModel = _mongoose2.default.model("Login", LoginSchema);
+var LoginModel = exports.LoginModel = mongoose.model('Login', LoginSchema);
+
+// module.exports = LoginModel;

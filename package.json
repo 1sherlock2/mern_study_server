@@ -1,33 +1,43 @@
 {
-  "name": "express_study",
-  "version": "1.0.0",
-  "main": "src/index.js",
-  "author": "sherlock <alim.gazdiev@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "build": "babel src -d dist",
-    "start": "node dist/index.js",
-    "build-start": "yarn build && yarn start"
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "concurrently": "^5.2.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.9.19"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1",
-    "bcryptjs": "^2.4.3",
-    "config": "^3.3.1",
-    "cookie-parser": "^1.4.5",
-    "express-validator": "^6.6.0",
-    "jsonwebtoken": "^8.5.1",
-    "multer": "^1.4.2",
-    "nodemon": "^2.0.4"
-  }
+	"name": "express_study",
+	"homepage": "https://1sherlock2.github.io/mern_study_react/",
+	"version": "1.0.0",
+	"main": "src/index.js",
+	"author": "sherlock <alim.gazdiev@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"build": "babel src -d dist",
+		"start": "cross-env NODE_ENV=production nodemon index.js",
+		"build-start": "npm run build && npm run start",
+		"mern_study_react:install": "npm install --prefix mern_study_react",
+		"mern_study_react:build": "npm run build --prefix mern_study_react",
+		"mern_study_react:start": " npm run start --prefix mern_study_react",
+		"dev": "cross-env NODE_ENV=development concurrently \"npm run build-start\" \"npm run mern_study_react:start\"",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
+	},
+	"dependencies": {
+		"body-parser": "^1.19.0",
+		"concurrently": "^5.2.0",
+		"cors": "^2.8.5",
+		"cross-env": "^7.0.2",
+		"express": "^4.17.1",
+		"mongoose": "^5.9.19",
+		"yarn": "^1.22.4"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.3",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-stage-0": "^6.24.1",
+		"bcryptjs": "^2.4.3",
+		"config": "^3.3.1",
+		"cookie-parser": "^1.4.5",
+		"express-validator": "^6.6.0",
+		"gh-pages": "^3.1.0",
+		"jsonwebtoken": "^8.5.1",
+		"multer": "^1.4.2",
+		"nodemon": "^2.0.4"
+	}
 }

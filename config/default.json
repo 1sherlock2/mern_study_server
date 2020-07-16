@@ -1,0 +1,4 @@
+{
+	"port": 4000,
+	"mongoUri": "mongodb+srv://1sherlock2:34896GAZ@cluster0-knqun.mongodb.net/express_study?retryWrites=true&w=majority"
+}

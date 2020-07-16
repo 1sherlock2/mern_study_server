@@ -1,13 +1,10 @@
-import { PostModel } from '../model/Post';
-import { LoginModel } from '../model/Login';
-const jwt = require('jsonwebtoken');
+const { PostModel } = require('../model/Post');
 const { Router } = require('express');
 const router = Router();
-const multer = require('multer');
 
 router.get('/:userId/posts', (req, res) => {
 	try {
-		PostModel.find({ userId: req.params.userId }).then(posts => {
+		PostModel.find({ userId: req.params.userId }).then((posts) => {
 			if (!posts) {
 				return res.status(400).json({
 					message: 'this posts is not defined'
@@ -42,7 +39,7 @@ router.post('/:userId/set_post', (req, res) => {
 
 router.get('/post/:id', (req, res) => {
 	try {
-		PostModel.findById(req.params.id).then(post => {
+		PostModel.findById(req.params.id).then((post) => {
 			if (!post) {
 				res.status(400).json({ message: 'not found' });
 			}
@@ -55,7 +52,7 @@ router.get('/post/:id', (req, res) => {
 
 router.put('/update_post/:id', (req, res) => {
 	try {
-		PostModel.findByIdAndUpdate(req.params.id, { $set: req.body }, err => {
+		PostModel.findByIdAndUpdate(req.params.id, { $set: req.body }, (err) => {
 			if (err) {
 				res.send(err);
 			}
@@ -68,7 +65,7 @@ router.put('/update_post/:id', (req, res) => {
 
 router.delete('/delete_post/:id', (req, res) => {
 	try {
-		PostModel.deleteOne({ _id: req.params.id }).then(post => {
+		PostModel.deleteOne({ _id: req.params.id }).then((post) => {
 			if (post) {
 				res.json({ status: 'deleted' });
 			} else {

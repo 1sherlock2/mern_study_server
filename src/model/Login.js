@@ -1,8 +1,11 @@
-import mongoose, {Schema, Types} from "mongoose";
+const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
 const LoginSchema = new Schema({
-  email: {type: String, required: true, unique: true},
-  password: {type: String, required: true, minlength: 8},
-})
+	email: { type: String, required: true, unique: true },
+	password: { type: String, required: true, minlength: 8 }
+});
 
-export const LoginModel = mongoose.model("Login", LoginSchema)
+var LoginModel = exports.LoginModel = mongoose.model('Login', LoginSchema);
+
+// module.exports = LoginModel;

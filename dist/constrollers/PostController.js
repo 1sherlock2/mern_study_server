@@ -1,20 +1,16 @@
 'use strict';
 
-var _Post = require('../model/Post');
+var _require = require('../model/Post'),
+    PostModel = _require.PostModel;
 
-var _Login = require('../model/Login');
-
-var jwt = require('jsonwebtoken');
-
-var _require = require('express'),
-    Router = _require.Router;
+var _require2 = require('express'),
+    Router = _require2.Router;
 
 var router = Router();
-var multer = require('multer');
 
 router.get('/:userId/posts', function (req, res) {
 	try {
-		_Post.PostModel.find({ userId: req.params.userId }).then(function (posts) {
+		PostModel.find({ userId: req.params.userId }).then(function (posts) {
 			if (!posts) {
 				return res.status(400).json({
 					message: 'this posts is not defined'
@@ -32,7 +28,7 @@ router.post('/:userId/set_post', function (req, res) {
 	try {
 		var data = req.body;
 		console.log(data);
-		var post = new _Post.PostModel({
+		var post = new PostModel({
 			title: data.title,
 			description: data.description,
 			imageURL: data.imageURL,
@@ -49,7 +45,7 @@ router.post('/:userId/set_post', function (req, res) {
 
 router.get('/post/:id', function (req, res) {
 	try {
-		_Post.PostModel.findById(req.params.id).then(function (post) {
+		PostModel.findById(req.params.id).then(function (post) {
 			if (!post) {
 				res.status(400).json({ message: 'not found' });
 			}
@@ -62,7 +58,7 @@ router.get('/post/:id', function (req, res) {
 
 router.put('/update_post/:id', function (req, res) {
 	try {
-		_Post.PostModel.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err) {
+		PostModel.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err) {
 			if (err) {
 				res.send(err);
 			}
@@ -75,7 +71,7 @@ router.put('/update_post/:id', function (req, res) {
 
 router.delete('/delete_post/:id', function (req, res) {
 	try {
-		_Post.PostModel.deleteOne({ _id: req.params.id }).then(function (post) {
+		PostModel.deleteOne({ _id: req.params.id }).then(function (post) {
 			if (post) {
 				res.json({ status: 'deleted' });
 			} else {

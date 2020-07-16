@@ -4,15 +4,18 @@ var express = require('express');
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-var auth = require("./constrollers/LoginController");
+var auth = require('./constrollers/LoginController');
 var postById = require('./constrollers/PostController');
 var multer = require('multer');
 var app = express();
+var config = require('config');
+
+var PORT = config.get('port');
 
 var urlencodedFalse = bodyParser.urlencoded({ extended: false });
 var bodyParserJsonTrue = bodyParser.json({
-  inflate: true,
-  strict: true
+	inflate: true,
+	strict: true
 });
 
 app.use(cors({ credentials: true, origin: true }));
@@ -21,15 +24,15 @@ app.use(cors({ credentials: true, origin: true }));
 app.use('/api', urlencodedFalse, bodyParserJsonTrue, auth);
 app.use('/api', urlencodedFalse, bodyParserJsonTrue, postById);
 
-mongoose.connect("mongodb+srv://1sherlock2:34896GAZ@cluster0-knqun.mongodb.net/express_study?retryWrites=true&w=majority", {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-  useCreateIndex: true
+mongoose.connect(config.get('mongoUri'), {
+	useNewUrlParser: true,
+	useFindAndModify: false,
+	useUnifiedTopology: true,
+	useCreateIndex: true
 });
 
-app.listen(4000, function () {
-  console.log('server was started');
+app.listen(PORT, function () {
+	console.log('server was started');
 });
 
 // import mongoose from "mongoose"
