@@ -4,7 +4,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const auth = require('./src/constrollers/LoginController');
 const postById = require('./src/constrollers/PostController');
-const multer = require('multer');
 const app = express();
 const config = require('config');
 const path = require('path');
@@ -38,7 +37,7 @@ mongoose.connect(config.get('mongoUri'), {
 });
 
 app.listen(PORT, () => {
-	console.log('server was started');
+	console.log(`server was started in ${PORT} port`);
 });
 
 // import mongoose from "mongoose"

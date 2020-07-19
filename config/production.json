@@ -1,5 +1,5 @@
 {
 	"port": 80,
 	"mongoUri": "mongodb+srv://1sherlock2:34896GAZ@cluster0-knqun.mongodb.net/express_study?retryWrites=true&w=majority",
-	"baseUrl": "http://sherlockstudy.ru"
+	"baseUrl": "http://80.249.147.187"
 }
